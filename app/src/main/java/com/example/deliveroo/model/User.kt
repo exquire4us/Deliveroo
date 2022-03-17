@@ -1,6 +1,7 @@
 package com.example.deliveroo.model
 
 import android.graphics.drawable.Drawable
+import androidx.room.Entity
 import com.squareup.moshi.Json
 import kotlinx.serialization.Serializable
 
