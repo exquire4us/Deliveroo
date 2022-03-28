@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -99,8 +100,7 @@ fun OutlineButtonDetails(
 fun PromoImageShapeCard (
     modifier: Modifier = Modifier,
     shape : Shape = RoundedCornerShape(50.dp),
-    context: Context,
-    data: Any?
+    painter : Painter = painterResource(id = R.drawable.crab_sticks)
 ){
     Card(
         modifier = modifier
@@ -112,17 +112,24 @@ fun PromoImageShapeCard (
 
     ) {
         Box(modifier = modifier.height(500.dp)) {
-            AsyncImage(model = ImageRequest.Builder(context)
-                .data(data)
-                .crossfade(enable = true)
-                .build(), 
+//            AsyncImage(model = ImageRequest.Builder(context)
+//                .data(data)
+//                .crossfade(enable = true)
+//                .build(),
+//                contentDescription = null,
+//                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
+//                contentScale = ContentScale.Crop,
+//                modifier = modifier
+//                    .fillMaxSize()
+//                    .clip(shape)
+//
+//            )
+            Image(painter = painter,
                 contentDescription = null,
-                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentScale = ContentScale.Crop,
                 modifier = modifier
                     .fillMaxSize()
                     .clip(shape)
-
             )
         }
     }
@@ -250,3 +257,8 @@ fun TextHeadingPreview(){
     TextHeadings()
 }
 
+@Preview
+@Composable
+fun PromoImage(){
+    PromoImageShapeCard()
+}

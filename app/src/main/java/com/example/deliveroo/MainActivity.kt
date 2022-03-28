@@ -8,14 +8,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.deliveroo.ui.OnboardingUI
 import com.example.deliveroo.ui.page.LoginForm
-import com.example.deliveroo.ui.page.MenuScreen
+import com.example.deliveroo.ui.page.HomeScreen
 import com.example.deliveroo.ui.page.SignUpForm
 import com.example.deliveroo.ui.theme.DeliverooTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,7 @@ fun DeliverooAppScreen () {
             SignUpForm(onSignUpClicked = { navigateToLoginForm(navController) })
         }
         composable(route = "homeScreen"){
-            MenuScreen()
+            HomeScreen()
         }
     }
 }

@@ -1,19 +1,13 @@
 package com.example.deliveroo.ui.page
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,17 +19,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.deliveroo.R
-import com.example.deliveroo.model.MyPhoto
-import com.example.deliveroo.model.PhotoUrls
-import com.example.deliveroo.network.UnsplashApi
+import com.example.deliveroo.model.MyPhotosViewModel
 import com.example.deliveroo.ui.theme.DeliverooTheme
-import kotlinx.coroutines.launch
 
 @Composable
-fun MenuScreen (){
-    val photos = getSamplePhotos()
+fun HomeScreen (photosViewModel: MyPhotosViewModel = hiltViewModel()){
     val context = LocalContext.current
+    val databsePhotos = photosViewModel.databasePhotos.value
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -84,38 +77,19 @@ fun MenuScreen (){
 
                 )
             }
-
-            LazyRow(content ={
-                if (!photos.isNullOrEmpty() ){
-                    items(count = photos.size,
-                        itemContent = {index->
-                            PromoImageShapeCard(context = context , data = photos[index].urls.regular)
-                    })
-                }
-            } )
-
-
         }
+        Text(text = "testing123")
     }
 }
 
-@SuppressLint("CoroutineCreationDuringComposition")
-@Composable
-fun getSamplePhotos () :List<MyPhoto>{
-    val scope = rememberCoroutineScope()
-    var photoList : List<MyPhoto> = emptyList()
-     scope.launch {
-         photoList =
-             UnsplashApi.retrofitService.getPhotos()
-    }
-    return photoList
-}
+
+
 
 
 @Preview
 @Composable
 fun PreviewHomeScreen() {
     DeliverooTheme {
-        MenuScreen()
+        HomeScreen()
     }
 }

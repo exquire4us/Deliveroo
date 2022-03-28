@@ -8,31 +8,19 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
+private const val  ACCESS_KEY ="0VNgJ1TaL3raZ_HIMipOOlbv8lVrAtoNMsyjdNwIOgc"
 
-private const val   BASE_URL = "https://api.unsplash.com"
-private const val  ACCESS_KEY ="CF3SkeC0ltxT_7rNcZqa1lREdmP5ZBWww3MWO2nb8wU"
-
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
-    .build()
 
 interface UnsplashApiServices {
     @Headers("Accept-Version: v1 ", "Authorization: Client-ID $ACCESS_KEY")
-    @GET("photos/random")
+    @GET("/photos/random")
     suspend fun getPhotos(
-        @Query ("content_filter") content_filter: String = "high",
-        @Query ("count") count :Int = 10,
-        @Query ("query") query : String = "asian food on plate"
+        @Query("collections") collections : String  = "",
+        @Query("username") username : String = "",
+        @Query("query") query : String = "asian food",
+        @Query("orientation") orientation : String ="landscape",
+        @Query("content_filter") content_filter: String = "low",
+        @Query("count") count :Int = 5
     ):List<MyPhoto>
 }
 
-object UnsplashApi{
-    val retrofitService : UnsplashApiServices by lazy {
-        retrofit.create(UnsplashApiServices::class.java)
-    }
-}

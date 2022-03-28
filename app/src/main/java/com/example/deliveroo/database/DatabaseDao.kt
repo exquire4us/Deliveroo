@@ -2,14 +2,12 @@ package com.example.deliveroo.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ImageItemDao {
-    @Query ("SELECT * from unsplash_images")
-    fun getAllPhotos (): LiveData<List<ImageItem>>
-
-    @Query ("SELECT * from unsplash_images Where image_id = :imageId")
-    fun getByImageId (imageId: String): ImageItem?
+interface DatabaseDao {
+    @Query ("SELECT * from my_photos")
+    fun getAllPhotos (): List<ImageItem>
 
     @Insert
     suspend fun insert (item: ImageItem)
@@ -20,6 +18,6 @@ interface ImageItemDao {
     @Delete
     suspend fun delete (item: ImageItem)
 
-    @Query ("DELETE FROM unsplash_images")
+    @Query ("DELETE FROM my_photos")
     suspend fun deleteAllImageItems ()
 }

@@ -13,13 +13,13 @@ data class User(
     )
 data class MyPhoto(
     @Json(name = "id") var id: String,
-    var description : String?,
-    var urls: PhotoUrls
+    @Json (name  ="description")var description : String?,
+    @Json (name = "urls")var urls: PhotoUrls
 )
 data class PhotoUrls(
-    var raw: String,
-    var full: String,
-    var regular: String,
-    var thumb: String
+    @Json (name= "raw")var raw: String,
+    @Json (name = "full")var full: String,
+    @Json (name= "regular")var regular: String,
+    @Json (name ="thumb")var thumb: String
 )
 
