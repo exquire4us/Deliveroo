@@ -8,6 +8,7 @@ import com.example.deliveroo.repository.UnsplashPhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -24,8 +25,10 @@ class MyPhotosViewModel @Inject constructor(
     private fun loadPhotos(){
 
         viewModelScope.launch(Dispatchers.IO) {
-            unsplashRepository.readData.collect{ image ->
-                databasePhotos.value = image
+            unsplashRepository.readData.collect{ images ->
+               withContext(Dispatchers.Main) {
+                   databasePhotos.value = images
+               }
 
             }
         }

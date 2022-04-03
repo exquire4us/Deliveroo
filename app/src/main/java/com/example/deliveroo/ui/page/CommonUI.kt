@@ -1,6 +1,7 @@
 package com.example.deliveroo.ui.page
 
 import android.content.Context
+import android.util.Size
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -99,37 +100,29 @@ fun OutlineButtonDetails(
 @Composable
 fun PromoImageShapeCard (
     modifier: Modifier = Modifier,
-    shape : Shape = RoundedCornerShape(50.dp),
+    shape : Shape = RoundedCornerShape(30.dp),
     painter : Painter = painterResource(id = R.drawable.crab_sticks)
 ){
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .padding(10.dp)
             .border(BorderStroke(2.dp, Color(0xffe42021)), shape = shape)
-            .padding(10.dp),
+            .padding(4.dp)
+        ,
         shape = shape,
         elevation = 5.dp,
 
     ) {
-        Box(modifier = modifier.height(500.dp)) {
-//            AsyncImage(model = ImageRequest.Builder(context)
-//                .data(data)
-//                .crossfade(enable = true)
-//                .build(),
-//                contentDescription = null,
-//                placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
-//                contentScale = ContentScale.Crop,
-//                modifier = modifier
-//                    .fillMaxSize()
-//                    .clip(shape)
-//
-//            )
+        Box() {
             Image(painter = painter,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = modifier
-                    .fillMaxSize()
+                    .size(width = 150.dp, height = 180.dp)
                     .clip(shape)
+
+
             )
         }
     }
@@ -140,7 +133,7 @@ fun PromoImageShapeCard (
 fun PopularAndNewCard(
     modifier: Modifier = Modifier,
     painter: Painter = painterResource(id = R.drawable.crab_sticks),
-    shape : Shape = RoundedCornerShape(50.dp),
+    shape : Shape = RoundedCornerShape(30.dp),
     foodName : String = "Tom Yam",
     price: String = "¢200",
     onCardClick: ()-> Unit = {}
@@ -148,7 +141,8 @@ fun PopularAndNewCard(
     Card(
         onClick = onCardClick,
         modifier = modifier
-            .fillMaxWidth(),
+            .padding(10.dp)
+            .size(width = 200.dp, height = 150.dp),
         shape = shape,
         elevation = 5.dp
     ) {
@@ -182,18 +176,18 @@ fun PopularAndNewCard(
             ) {
                 Text(
                     text = foodName,
-                    style = TextStyle(color = Color.White, fontSize = 30.sp, FontWeight.Bold),
+                    style = TextStyle(color = Color.White, fontSize = 15.sp, FontWeight.Bold),
                     modifier = modifier
                         .align(Alignment.BottomStart)
-                        .padding(12.dp)
+                        .padding(8.dp)
                 )
 
                 Text(
                     text = price,
-                    style = TextStyle(color = Color.White, fontSize = 30.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif ),
+                    style = TextStyle(color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif ),
                     modifier = modifier
                         .align(Alignment.BottomEnd)
-                        .padding(12.dp)
+                        .padding(8.dp)
                         .background(Color(0xffe42021), shape = shape)
                         .padding(horizontal = 12.dp)
                 )
@@ -203,8 +197,8 @@ fun PopularAndNewCard(
                    tint = Color(0xffe42021),
                    modifier = modifier
                        .align(Alignment.TopEnd)
-                       .padding(12.dp)
-                       .size(50.dp)
+                       .padding(5.dp)
+                       .size(25.dp)
                )
             }
         }

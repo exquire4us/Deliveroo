@@ -3,6 +3,8 @@ package com.example.deliveroo.ui.page
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -21,6 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Dimension
+import coil.size.Size
 import com.example.deliveroo.R
 import com.example.deliveroo.model.MyPhotosViewModel
 import com.example.deliveroo.ui.theme.DeliverooTheme
@@ -35,7 +41,7 @@ fun HomeScreen (photosViewModel: MyPhotosViewModel = hiltViewModel()){
             .background(color = colorResource(id = R.color.backgroundColor))
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
         )
         {
             Image(
@@ -78,7 +84,44 @@ fun HomeScreen (photosViewModel: MyPhotosViewModel = hiltViewModel()){
                 )
             }
         }
-        Text(text = "testing123")
+        
+        LazyRow(
+            modifier = Modifier.fillMaxWidth()
+        ){
+            items(items = databsePhotos,  itemContent = {item ->
+                val painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(item.regular)
+                        .size(Size.ORIGINAL)
+                        .crossfade(enable = true)
+                        .build()
+                )
+                PromoImageShapeCard(
+                    painter = painter
+                )
+
+            })
+        }
+
+        TextHeadings(
+            title = "Popular and new ",
+            textSize = 24.sp,
+            modifier = Modifier.padding(15.dp)
+        )
+
+        LazyRow(contentPadding = PaddingValues()){
+            items(items = databsePhotos, itemContent = { item ->
+                val painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(item.regular)
+                        .size(Size.ORIGINAL)
+                        .crossfade(enable = true)
+                        .build()
+                )
+                PopularAndNewCard(painter = painter)
+
+            })
+        }
     }
 }
 
