@@ -27,13 +27,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -101,11 +104,14 @@ fun OutlineButtonDetails(
 fun PromoImageShapeCard (
     modifier: Modifier = Modifier,
     shape : Shape = RoundedCornerShape(30.dp),
-    painter : Painter = painterResource(id = R.drawable.crab_sticks)
+    painter : Painter = painterResource(id = R.drawable.crab_sticks),
+    cardWidth : Dp = 150.dp,
+    cardHeight : Dp = 180.dp
 ){
     Card(
         modifier = modifier
-            .fillMaxWidth()
+            .width(cardWidth)
+            .height(cardHeight)
             .padding(10.dp)
             .border(BorderStroke(2.dp, Color(0xffe42021)), shape = shape)
             .padding(4.dp)
@@ -119,7 +125,6 @@ fun PromoImageShapeCard (
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = modifier
-                    .size(width = 150.dp, height = 180.dp)
                     .clip(shape)
 
 
@@ -136,17 +141,19 @@ fun PopularAndNewCard(
     shape : Shape = RoundedCornerShape(30.dp),
     foodName : String = "Tom Yam",
     price: String = "¢200",
+    cardHeight  : Dp = 150.dp,
+    cardWidth : Dp = 200.dp,
     onCardClick: ()-> Unit = {}
 ){
     Card(
         onClick = onCardClick,
         modifier = modifier
             .padding(10.dp)
-            .size(width = 200.dp, height = 150.dp),
+            .size(cardWidth, cardHeight),
         shape = shape,
         elevation = 5.dp
     ) {
-        Box(modifier = modifier.height(300.dp)){
+        Box(modifier = modifier.fillMaxHeight()){
             Image(
                 painter = painter,
                 contentDescription = null,
@@ -176,20 +183,18 @@ fun PopularAndNewCard(
             ) {
                 Text(
                     text = foodName,
-                    style = TextStyle(color = Color.White, fontSize = 15.sp, FontWeight.Bold),
+                    style = TextStyle(color = Color.White, fontSize = 10.sp, FontWeight.Bold),
                     modifier = modifier
                         .align(Alignment.BottomStart)
-                        .padding(8.dp)
                 )
 
                 Text(
                     text = price,
-                    style = TextStyle(color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif ),
+                    style = TextStyle(color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif ),
                     modifier = modifier
                         .align(Alignment.BottomEnd)
-                        .padding(8.dp)
                         .background(Color(0xffe42021), shape = shape)
-                        .padding(horizontal = 12.dp)
+                        .padding(horizontal = 5.dp)
                 )
 
                Icon(imageVector = Icons.Default.FavoriteBorder,
@@ -197,7 +202,6 @@ fun PopularAndNewCard(
                    tint = Color(0xffe42021),
                    modifier = modifier
                        .align(Alignment.TopEnd)
-                       .padding(5.dp)
                        .size(25.dp)
                )
             }
@@ -208,15 +212,101 @@ fun PopularAndNewCard(
 fun CategoriesButton(
     modifier: Modifier = Modifier,
     categoryName: String = "Work",
+    colors : ButtonColors = ButtonDefaults.outlinedButtonColors(
+        backgroundColor = Color.LightGray,
+        contentColor = Color.White
+    ),
+    onButtonClick : ()-> Unit = {}
+//0xffe42021
 
 ){
-    OutlinedButton(onClick = {}, modifier = modifier, colors = ButtonDefaults.outlinedButtonColors(
-        backgroundColor = Color(0xffe42021),
-        contentColor = Color.White
-    ), shape = RoundedCornerShape(50.dp)) {
+    OutlinedButton(onClick = onButtonClick, modifier = modifier
+        .wrapContentWidth()
+        .wrapContentHeight()
+        .padding(end = 10.dp),colors = colors, shape = RoundedCornerShape(50.dp)) {
         Icon(imageVector = Icons.Default.Face, contentDescription = null, modifier = modifier.size(40.dp))
-        Text(text = categoryName, fontWeight = FontWeight.Bold, fontSize = 24.sp,
-        modifier = modifier.padding(horizontal = 10.dp, vertical = 10.dp))
+        Text(text = categoryName, textAlign = TextAlign.Justify,fontWeight = FontWeight.Bold, fontSize = 10.sp,
+        modifier =Modifier.padding(horizontal = 10.dp, vertical = 10.dp))
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun CategoriesCard(
+    modifier: Modifier = Modifier,
+    painter: Painter = painterResource(id = R.drawable.crab_sticks),
+    shape : Shape = RoundedCornerShape(30.dp),
+    foodName : String = "Wasabi Shrimps",
+    price: String = "¢200",
+    cardHeight  : Dp = 150.dp,
+    icon: @Composable ()-> Unit  = {},
+    onCardClick: ()-> Unit = {}
+
+){
+    Card(
+        onClick = onCardClick,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(cardHeight)
+        ,
+        shape = shape,
+        elevation = 5.dp
+    ) {
+        Box(modifier = Modifier.background(color = colorResource(id = R.color.backgroundColor))
+        ){
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Image(painter = painter,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth(0.3f)
+                        .fillMaxHeight()
+                        .clip(RoundedCornerShape(topEnd = 0.dp, bottomEnd = 0.dp))
+                )
+                Box(modifier = Modifier
+                    .wrapContentWidth()
+                    .fillMaxHeight()){
+                    Column() {
+                        TextHeadings(
+                            modifier= Modifier
+                                .padding(5.dp),
+                            textSize = 15.sp,
+                            title = foodName
+                        )
+
+                        Text(text = "Shrimp in crispy butter, spicy and sweet Wasabi sauce, daikon," +
+                                "Pai potatoes , flying fish roe , Kimchi sesame",
+                            fontSize = 10.sp, color = Color.DarkGray,
+                            modifier = modifier.padding(5.dp)
+                        )
+                    }
+
+                    Icon(imageVector = Icons.Default.FavoriteBorder,
+                        contentDescription = null,
+                        tint = Color(0xffe42021),
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(end = 20.dp, bottom = 5.dp)
+                            .size(25.dp)
+                    )
+
+                    Text(
+                        text = price,
+                        style = TextStyle(color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif ),
+                        modifier = Modifier
+                            .align(Alignment.BottomStart)
+                            .padding(start= 8.dp, bottom = 8.dp)
+                            .background(Color(0xffe42021), shape = shape)
+                            .padding(horizontal = 12.dp)
+                    )
+
+
+                }
+
+            }
+
+
+        }
     }
 }
 
@@ -255,4 +345,10 @@ fun TextHeadingPreview(){
 @Composable
 fun PromoImage(){
     PromoImageShapeCard()
+}
+
+@Preview
+@Composable
+fun CategoriesPreview (){
+    CategoriesCard()
 }

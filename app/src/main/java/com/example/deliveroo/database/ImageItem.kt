@@ -25,3 +25,16 @@ data class ImageItem(
     val thumb: String?
 
 )
+
+@Entity(tableName ="Popular_and_New_ Photos ")
+data class Popularphotos(
+    @PrimaryKey (autoGenerate = false) @NonNull
+    val imageId: String,
+
+    @ColumnInfo (name = "image_description")
+    val description : String?,
+
+    @ColumnInfo(name = "url_full")
+    val full : String?
+
+)

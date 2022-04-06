@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.deliveroo.ui.OnboardingUI
+import com.example.deliveroo.ui.navigation.MainScreen
 import com.example.deliveroo.ui.page.LoginForm
 import com.example.deliveroo.ui.page.HomeScreen
 import com.example.deliveroo.ui.page.SignUpForm
@@ -52,7 +53,7 @@ fun DeliverooAppScreen () {
             SignUpForm(onSignUpClicked = { navigateToLoginForm(navController) })
         }
         composable(route = "homeScreen"){
-            HomeScreen()
+            MainScreen()
         }
     }
 }
