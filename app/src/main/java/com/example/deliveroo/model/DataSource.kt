@@ -21,3 +21,13 @@ val onboardPages = listOf<Page>(
         R.drawable.stir_fry_chicken_sweet_peppers_and_green_onion_a_2021_08_26_23_07_27_utc_3_11zon
     )
 )
+
+val categoriesList = listOf(Categories.Lunch, Categories.Snacks, Categories.IceCream, Categories.Dessert)
+
+
+sealed class Categories(val title: String , val Icon : Int){
+    object Lunch : Categories("Lunch",R.drawable.lunch_icon)
+    object Dessert: Categories("Dessert", R.drawable.ic_cupcake)
+    object IceCream: Categories("Ice Cream",R.drawable.ic_ice_cream_1)
+    object Snacks: Categories("Snacks", R.drawable.ic_fruit_kebab_1)
+}

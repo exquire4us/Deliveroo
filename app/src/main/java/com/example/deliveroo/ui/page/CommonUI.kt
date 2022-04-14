@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -103,7 +104,7 @@ fun OutlineButtonDetails(
 @Composable
 fun PromoImageShapeCard (
     modifier: Modifier = Modifier,
-    shape : Shape = RoundedCornerShape(30.dp),
+    shape : Shape = RoundedCornerShape(15.dp),
     painter : Painter = painterResource(id = R.drawable.crab_sticks),
     cardWidth : Dp = 150.dp,
     cardHeight : Dp = 180.dp
@@ -138,7 +139,7 @@ fun PromoImageShapeCard (
 fun PopularAndNewCard(
     modifier: Modifier = Modifier,
     painter: Painter = painterResource(id = R.drawable.crab_sticks),
-    shape : Shape = RoundedCornerShape(30.dp),
+    shape : Shape = RoundedCornerShape(15.dp),
     foodName : String = "Tom Yam",
     price: String = "¢200",
     cardHeight  : Dp = 150.dp,
@@ -216,6 +217,7 @@ fun CategoriesButton(
         backgroundColor = Color.LightGray,
         contentColor = Color.White
     ),
+    icon: Painter = painterResource(id = R.drawable.ic_find_us),
     onButtonClick : ()-> Unit = {}
 //0xffe42021
 
@@ -224,7 +226,7 @@ fun CategoriesButton(
         .wrapContentWidth()
         .wrapContentHeight()
         .padding(end = 10.dp),colors = colors, shape = RoundedCornerShape(50.dp)) {
-        Icon(imageVector = Icons.Default.Face, contentDescription = null, modifier = modifier.size(40.dp))
+        Icon(painter  = icon, contentDescription = null, modifier = modifier.size(40.dp))
         Text(text = categoryName, textAlign = TextAlign.Justify,fontWeight = FontWeight.Bold, fontSize = 10.sp,
         modifier =Modifier.padding(horizontal = 10.dp, vertical = 10.dp))
     }
@@ -235,7 +237,7 @@ fun CategoriesButton(
 fun CategoriesCard(
     modifier: Modifier = Modifier,
     painter: Painter = painterResource(id = R.drawable.crab_sticks),
-    shape : Shape = RoundedCornerShape(30.dp),
+    shape : Shape = RoundedCornerShape(15.dp),
     foodName : String = "Wasabi Shrimps",
     price: String = "¢200",
     cardHeight  : Dp = 150.dp,
@@ -295,7 +297,7 @@ fun CategoriesCard(
                         style = TextStyle(color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.SansSerif ),
                         modifier = Modifier
                             .align(Alignment.BottomStart)
-                            .padding(start= 8.dp, bottom = 8.dp)
+                            .padding(start = 8.dp, bottom = 8.dp)
                             .background(Color(0xffe42021), shape = shape)
                             .padding(horizontal = 12.dp)
                     )
@@ -320,7 +322,6 @@ fun TextHeadings(
 ){
     Text(modifier =modifier ,text = title, fontWeight = fontWeight, color = color, fontSize = textSize)
 }
-
 
 
 @Preview

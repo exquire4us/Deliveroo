@@ -49,10 +49,10 @@ fun BottomNavigation(navController: NavHostController){
         BottomNavItem.Cart
     )
     androidx.compose.material.BottomNavigation(
-        backgroundColor = Color.LightGray,
+        backgroundColor = Color.LightGray.copy(1f),
         contentColor = Color.Red,
         elevation = 20.dp,
-        modifier = Modifier.fillMaxWidth().padding(15.dp).clip(RoundedCornerShape(100.dp))
+        modifier = Modifier.fillMaxWidth().padding(15.dp).clip(RoundedCornerShape(15.dp))
 
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
